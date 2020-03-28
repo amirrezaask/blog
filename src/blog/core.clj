@@ -1,6 +1,10 @@
-(ns blog.core)
+(ns blog.core
+  (:require [clj-org.org :refer [parse-org]]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn open-file [file-path]
+  (slurp file-path))
+
+(defn parse [file-path]
+  (let [contents (open-file file-path)]
+    (parse-org contents)))
+

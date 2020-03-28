@@ -1,13 +1,6 @@
 (ns blog.core
   (:gen-class)
-  (:require [clj-org.org :refer [parse-org]]))
-
-(defn open-file [file-path]
-  (slurp file-path))
-
-(defn parse [file-path]
-  (let [contents (open-file file-path)]
-    (parse-org contents)))
+  (:require [blog.parser :as parser]))
 
 (defn -main [& args]
-  (println (parse (nth args 0))))
+  (println (parser/parse (nth args 0))))

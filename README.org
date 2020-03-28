@@ -2,3 +2,9 @@
 Blog is my personal blog written in Clojure and Org-mode.
 Clojure program runs in CI/CD pipeline and parses the org files of the blog and generates =hiccup= trees
 and then htmls from them then CI/CD will deploy the output on the =Gitlab pages=.
+
+** Blog structure
+**** index.org
+**** posts/*.org
+**** about.org
+**** contact.org

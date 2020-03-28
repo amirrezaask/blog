@@ -1,5 +1,5 @@
 (ns blog.parser
-  (:require [clj-org.org :refer [parse-org]]))
+  (:require [clj-org.org :refer [parse-org]] [hiccup.core :as h]))
 
 (defn open-file
   "Basically opens a file with given file-path"
@@ -12,4 +12,6 @@
   (->
    file-path
    (open-file)
-   (parse-org)))
+   (parse-org)
+   (:content)
+   (h/html)))

@@ -9,5 +9,5 @@
   (let [contents (open-file file-path)]
     (parse-org contents)))
 
-(defn main [& args]
-  (println "Args => " args))
+(defn -main [& args]
+  (println (parse (nth args 0))))

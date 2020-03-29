@@ -1,15 +1,23 @@
 (ns blog.parser
-  (:require [clj-org.org :refer [parse-org]] [hiccup.core :as h]))
+  (:require [clj-org.org :refer [parse-org]]
+            [hiccup.core :as h]))
 
 (defn parse
   "first opens given file and parse it into hiccup tree."
   [file-path]
-  (->
-   file-path
-   (slurp)
-   (parse-org)
-   (:content)
-   (h/html)))
+  {
+   :name file-path
+   :content   (->
+               file-path
+               (slurp)
+               (parse-org)
+               (:content)
+               (h/html))})
+
+(defn with-posts-index
+  "generate posts index"
+  [posts]
+  )
 
 (defn posts
   "parses all posts in /posts and return all posts html representation plus the posts index."
@@ -17,4 +25,7 @@
   (->>
    posts
    (map (fn [post-name] (format "%s/%s" posts-loc post-name)))
-   (map parse)))
+   (map parse)
+   (posts-index)))
+
+(posts "posts" ["post1.org" "post2.org"])

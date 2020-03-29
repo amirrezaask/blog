@@ -19,7 +19,7 @@
 (defn with-posts-index
   "generate posts index"
   [posts-loc posts]
-  (let [names (map (fn [post] (:name post)) posts)]
+  (let [names (map :name posts)]
     (conj posts {:name (format "%s/index.html" posts-loc) :content [:ul (map (fn [name] [:li name]) names)]} )))
 
 (defn posts

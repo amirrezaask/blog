@@ -22,17 +22,23 @@
   (let [names (map :name posts)]
     (conj posts {:name (format "%s/index.html" posts-loc) :content [:ul (map (fn [name] [:li name]) names)]} )))
 
+(defn extract-name [name]
+  (get (s/split (get (s/split name #"/") 1) #"\.") 0))
+
+
 (defn posts
   "parses all posts in /posts and return all posts html representation plus the posts index."
-  [posts-loc posts]
+  [public-loc posts-loc posts]
+  (println posts)
   (->>
    posts
    (map (fn [post-name] (format "%s/%s" posts-loc post-name)))
    (map (fn [post] (read-and-parse post)))
    (with-posts-index posts-loc)
    (map (fn [post] {:name (:name post) :content (h/html (:content post))}))
-   (map (fn [post] (assoc post :name (format "%s.html" (get (s/split (:name post) #"\.") 0)))))
+   (map (fn [post] (assoc post :name (extract-name (:name post)))))
+   (map (fn [post] (assoc post :name (format "%s/%s.html" public-loc (get (s/split (:name post) #"\.") 0)))))
    (map (fn [post] (spit (:name post) (:content post))))
 ))
 
-(posts "posts" ["post1.org" "post2.org"])
+(posts "public" "posts" ["post1.org" "post2.org"])

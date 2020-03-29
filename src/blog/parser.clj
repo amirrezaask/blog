@@ -41,4 +41,4 @@
    (map (fn [post] (spit (:name post) (:content post))))
 ))
 
-(posts "public" "posts" ["post1.org" "post2.org"])
+;; (posts "public" "posts" ["post1.org" "post2.org"])

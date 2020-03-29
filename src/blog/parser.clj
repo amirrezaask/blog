@@ -31,7 +31,7 @@
    (map (fn [post] (read-and-parse post)))
    (with-posts-index posts-loc)
    (map (fn [post] {:name (:name post) :content (h/html (:content post))}))
-   (map (fn [post] {:name (format "%s.html" (get (s/split (:name post) #"\.") 0)) :content (:content post)}))
+   (map (fn [post] (assoc post :name (format "%s.html" (get (s/split (:name post) #"\.") 0)))))
    (map (fn [post] (spit (:name post) (:content post))))
 ))
 
